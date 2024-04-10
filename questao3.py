@@ -1,4 +1,5 @@
 import json
+import os
 
 
 class Cinema:
@@ -60,14 +61,15 @@ class Cinema:
             arquivo.write(dados)
             
     def ler_reservas(self):
-        with open('dados.json', "r") as arquivo:
-           data = json.load(arquivo)
-           self.reservas = data
-           
-           for reserva in self.reservas:
-               assento = tuple(self.reservas[reserva])
-               self.assentos_disponiveis.remove(assento)
-                 
+        if os.path.exists('dados,json'):
+            with open('dados.json', "r") as arquivo:
+                data = json.load(arquivo)
+                self.reservas = data
+                
+                for reserva in self.reservas:
+                    assento = tuple(self.reservas[reserva])
+                    self.assentos_disponiveis.remove(assento)
+                    
                
 
 
