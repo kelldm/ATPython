@@ -6,12 +6,25 @@ import os
 banco_de_dados = []
 
 def adicionar_dados_criptografados(dados):
+    """
+    Adiciona os dados criptografados ao banco de dados.
+    dados (dict): Dicionário contendo os dados a serem adicionados (serviço, login, senha).
+    """
     dados_criptografados = {}
     for chave, valor in dados.items():
         dados_criptografados[chave] = criptografar(valor)
     banco_de_dados.append(dados_criptografados)
     
 def consultar_senha(servico, palavra_chave):
+    """
+    Consulta a senha de um serviço específico no banco de dados.
+
+    servico (str): Nome do serviço.
+    palavra_chave (str): Palavra chave para autorizar a consulta.
+
+    Retorna:
+    tuple: Tupla contendo o login e a senha do serviço consultado.
+    """
     if palavra_chave != "mostrar_senha":
         print("Palavra chave incorreta.")
         return
@@ -25,15 +38,19 @@ def consultar_senha(servico, palavra_chave):
             return login, senha
 
 def criptografar(texto):
+    """
+    Criptografa um texto usando ASCII
+    texto (str): Texto a ser criptografado.
+    Retorna:
+    str: Texto criptografado.
+    """
     texto_criptografado = ""
     for char in texto:
         if char.isalpha():
             codigo = ord(char)
             if char.islower():
-                #97 é onde começa o A minusculo
                 novo_codigo = (codigo - 97 + 3) % 26 + 97
             else:
-                #65 é onde começa o A maiusculo
                 novo_codigo = (codigo - 65 + 3) % 26 + 65
             texto_criptografado += chr(novo_codigo)
         else:
@@ -41,6 +58,12 @@ def criptografar(texto):
     return texto_criptografado
 
 def descriptografar(texto_criptografado):
+    """
+    Descriptografa um texto criptografado usando ASCII
+    texto_criptografado (str): Texto criptografado a ser descriptografado
+    Retorna:
+    str: Texto descriptografado
+    """
     texto_original = ""
     for char in texto_criptografado:
         if char.isalpha():
@@ -55,17 +78,29 @@ def descriptografar(texto_criptografado):
     return texto_original
 
 def gerar_senha(tamanho):
+    """
+    Gera uma senha aleatória.
+    tamanho (int): Tamanho da senha a ser gerada
+    Retorna:
+    str: Senha gerada.
+    """
     caracteres = string.ascii_letters + string.digits + string.punctuation 
     senha = ''.join(random.choice(caracteres) for _ in range(tamanho))
     return senha
 
 def gravar_banco():
+    """
+    Grava o banco de dados em um arquivo JSON
+    """
     global banco_de_dados
     dados = json.dumps(banco_de_dados, indent=4)
     with open('senhas.json', "w") as arquivo:
         arquivo.write(dados)
     
 def ler_banco():
+    """
+    Lê o banco de dados a partir de um arquivo JSON
+    """
     global banco_de_dados
     
     if os.path.exists('senhas.json'):
@@ -74,6 +109,9 @@ def ler_banco():
             banco_de_dados = data
              
 def main():
+    """
+    Função principal que executa o programa 
+    """
     global banco_de_dados
     
     ler_banco()

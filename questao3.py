@@ -1,7 +1,6 @@
 import json
 import os
 
-
 class Cinema:
     """
     Classe para o sistema de reservas de ingressos do cinema.
@@ -9,8 +8,6 @@ class Cinema:
     def __init__(self, fileiras, assentos_por_fileira):
         """
         Inicializa o sistema de reservas de ingressos.
-
-        Parametros:
         fileiras (int): Número de fileiras no cinema.
         assentos_por_fileira (int): Número de assentos por fileira no cinema.
         """
@@ -18,7 +15,6 @@ class Cinema:
         self.assentos_por_fileira = assentos_por_fileira
         self.assentos_disponiveis = {(chr(65 + i), j + 1) for i in range(fileiras) for j in range(assentos_por_fileira)}
         self.reservas = {}
-        
 
     def visualizar_assentos(self):
         """
@@ -37,12 +33,9 @@ class Cinema:
     def reservar_ingresso(self, cliente, assento):
         """
         Reserva um ingresso para o cliente em um assento específico.
-
-        Parametros:
         cliente (str): Nome do cliente.
         assento (tuple): Tupla representando o assento no formato (fileira, assento).
         """
-        
         if assento in self.assentos_disponiveis:
             self.assentos_disponiveis.remove(assento)
             self.reservas[cliente] = assento
@@ -56,12 +49,18 @@ class Cinema:
             print("--------------------------------")
 
     def salvar_reservas(self):
+        """
+        Salva as reservas em um arquivo JSON.
+        """
         dados = json.dumps(self.reservas, indent=4)
         with open('dados.json', "w") as arquivo:
             arquivo.write(dados)
             
     def ler_reservas(self):
-        if os.path.exists('dados,json'):
+        """
+        Lê as reservas a partir de um arquivo JSON.
+        """
+        if os.path.exists('dados.json'):
             with open('dados.json', "r") as arquivo:
                 data = json.load(arquivo)
                 self.reservas = data
@@ -70,8 +69,6 @@ class Cinema:
                     assento = tuple(self.reservas[reserva])
                     self.assentos_disponiveis.remove(assento)
                     
-               
-
 
 # Exemplo de uso do sistema de reservas de ingressos
 if __name__ == "__main__":

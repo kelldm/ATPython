@@ -83,28 +83,37 @@ banco_perguntas = [
                 "resposta_correta": "b"
             }
         ]
-perguntas_feitas = []
-pontuacao = 0
-pontuacao_total = 0
-fase = 1
+perguntas_feitas = [] #Lista para armazenar as perguntas já feitas
+pontuacao = 0 #Pontuação do jogador na rodada atual
+pontuacao_total = 0 #Pontuação total do jogador em todas as rodadas
+fase = 1 #Fase atual do jogo
 
 def selecionar_pergunta():
+    """
+    Seleciona uma pergunta aleatória que ainda não foi feita no jogo atual.
+    Return:
+    dict: Um dicionário representando uma pergunta selecionada.
+    """
     for pergunta in banco_perguntas:
             if pergunta not in perguntas_feitas:
                 perguntas_feitas.append(pergunta)
                 return pergunta
 
-#selecionar perguntas tem que ser uma função que vai retornar uma lista de 5 perguntas que não podem ser iguais a de rodadas anteriores
 def selecionar_perguntas():
     #List Comprehension
+    """
+    Seleciona 5 perguntas aleatórias, garantindo que não sejam repetidas entre si nem com perguntas já feitas.
+    Return:
+    list: Uma lista de dicionários representando as perguntas selecionadas.
+    """
     return [selecionar_pergunta() for _ in range(5)]
 
-
 #jogar pode retornar true ou false caso a pontuacao nao seja 5, ou a main pode verificar e decidir se chama jogar de novo
-
 def jogar():
-    #usei recursao sem querer :p
-    
+    """
+    Inicia o jogo, apresentando perguntas ao jogador e registrando sua pontuação.
+    """
+
     global pontuacao
     global pontuacao_total
     global fase
@@ -150,7 +159,8 @@ def jogar():
         print(f"Parabéns! Você acertou todas as perguntas! Iniciando fase {fase}/3")
         print("---------------------------------------------------------------------")
         fase +=1
-        pontuacao = 0
+        pontuacao = 0 
+        #usei recursao sem querer :P
         jogar()
     else:
         pontuacao_total += pontuacao
@@ -161,13 +171,13 @@ def jogar():
     
 
 def main():
-    
+    """
+    Função principal que executa o jogo 
+    """
     #menu
     print("* * * * * * * * * * * * * * * * * * * * * * * * * * *")
     print("* SEJA BEM VINDO AO JOGO TRIVIA !!! VAMOS COMEÇAR? *")
     print("* * * * * * * * * * * * * * * * * * * * * * * * * * * ")
-
-    #verificar se a pontuação é igual a 5, se for reiniciar o jogo e reinicia a pontuação para 0
     jogar()
     
     

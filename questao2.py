@@ -1,6 +1,11 @@
 historico = []
 
 def menu(): 
+    """
+    Exibe o menu de opções para o usuário e solicita a escolha de uma opção.
+    str: A opção escolhida pelo usuário.
+    """
+
     print("-----------------------------------")
     print("\nMenu:")
     print("1. Adicionar receita")
@@ -16,8 +21,13 @@ def menu():
 
     return opcao
 
-#deve adicionar no historico o tipo da operacao e seu valor
 def adicionar_receita_no_historico(tipo, valor, fonte):
+    """
+    Registra uma receita no histórico.
+    tipo (str): Tipo da operação (receita).
+    valor (float): Valor da receita.
+    fonte (str): Fonte da receita.
+    """
     global historico
     historico.append({
         "operacao": tipo,
@@ -25,6 +35,14 @@ def adicionar_receita_no_historico(tipo, valor, fonte):
         "fonte": fonte})
 
 def adicionar_despesa_no_historico(tipo, valor, descricao, categoria):
+    """
+    Registra uma despesa no histórico.
+    tipo (str): Tipo da operação (despesa).
+    valor (float): Valor da despesa.
+    descricao (str): Descrição da despesa.
+    categoria (str): Categoria da despesa.
+    """
+
     global historico
     historico.append({
         "operacao": tipo,
@@ -33,8 +51,14 @@ def adicionar_despesa_no_historico(tipo, valor, descricao, categoria):
         "categoria": categoria
     })
     
-#deve adicionar ao saldo o valor e deve salvar na lista de receitas a operacao
 def adicionar_receita(saldo, valor, fonte, receitas):
+    """
+    Deve adicionar ao saldo o valor e deve salvar na lista de receitas a operacao
+    saldo (float): Saldo atual.
+    valor (float): Valor da receita.
+    fonte (str): Fonte da receita.
+    receitas (list): Lista de receitas.
+    """
     saldo += valor
     receitas.append({
         "valor":valor,
@@ -42,8 +66,15 @@ def adicionar_receita(saldo, valor, fonte, receitas):
     })
     adicionar_receita_no_historico("receita", valor, fonte)
 
-#deve remover do saldo o valor passado e adicionar na lista de despesas a operacao
+
 def adicionar_despesa(saldo, valor, descricao, categoria, despesas):
+    """
+    Registra uma despesa no histórico. Deve remover do saldo o valor passado e adicionar na lista de despesas a operacao
+    tipo (str): Tipo da operação (despesa).
+    valor (float): Valor da despesa.
+    descricao (str): Descrição da despesa.
+    categoria (str): Categoria da despesa.
+    """
     saldo -= valor
     despesas.append({
         "valor": valor,
@@ -53,8 +84,10 @@ def adicionar_despesa(saldo, valor, descricao, categoria, despesas):
     
     adicionar_despesa_no_historico("despesa", valor, descricao, categoria)
 
-#percorre a lista historico e vai printando     
 def mostrar_extrato(): 
+    """
+    Exibe o extrato das operações financeiras registradas no histórico.
+    """
     global historico
     print("======= EXTRATO =======")
     for item in historico:
@@ -73,8 +106,12 @@ def mostrar_extrato():
             print("-----------------------")
     print("======= FIM DO EXTRATO =======")
 
-#percorre a lista despesas, ordena por maior valor gasto na categoria e printa
 def exibir_relatorio_gastos(despesas):
+    """
+    Exibe um relatório de gastos ordenado por maior valor gasto na categoria.
+    despesas (list): Lista de despesas.
+    """
+
     despesas_ordenadas = sorted(despesas, key = lambda item: item['valor'], reverse = True)
     print("======= RELATORIO DE GASTOS =======")
     print("-----------------------------------")
@@ -85,8 +122,12 @@ def exibir_relatorio_gastos(despesas):
     print("------------------------------------------")        
     print("======= FIM DO RELATORIO DE GASTOS =======")
     
-#percorre a lista de receitas e printa cada item
 def exibir_relatoro_receitas(receitas):
+    """
+    Exibe um relatório de receitas.
+    receitas (list): Lista de receitas.
+    """
+
     print("======= RELATORIO DE RECEITAS =======")
     print("-------------------------------------")
 
@@ -97,6 +138,9 @@ def exibir_relatoro_receitas(receitas):
     print("======= FIM DO RELATORIO DE GASTOS =======")
 
 def main():
+    """
+    Função principal que executa o sistema de controle financeiro.
+    """
     print("*******************************************")
     print("***** SISTEMA DE CONTROLE FINANCEIRO ******")
     print("*******************************************")
