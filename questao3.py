@@ -39,7 +39,6 @@ class Cinema:
         if assento in self.assentos_disponiveis:
             self.assentos_disponiveis.remove(assento)
             self.reservas[cliente] = assento
-            print(self.reservas)
             print("--------------------------------")
             print(f"Ingresso reservado com sucesso para {cliente} no assento {assento}.")
             print("--------------------------------")

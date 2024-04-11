@@ -117,16 +117,28 @@ def main():
     ler_banco()
     
     while True:
+        print("************************************")
+        print("*******CRIPTOGRAFIA DE SENHAS*******")
+        print("************************************")
+
         print("\n1. Gerar Senha")
         print("2. Consultar Senha")
         print("3. Sair")
 
         escolha = input("\nEscolha uma opção: ")
+        print("---------------------------------")
+
 
         if escolha == '1':
             servico = input("Digite o nome do serviço: ")
+            print("---------------------------------")
+
             login = input("Digite o login: ")
+            print("---------------------------------")
+
             comprimento = int(input("Digite o comprimento da senha desejada: "))
+            print("---------------------------------")
+
             senha = gerar_senha(comprimento)
             dados = {
                 "servico": servico,
@@ -137,12 +149,18 @@ def main():
 
         elif escolha == '2':
             servico = input("Digite o nome do serviço: ")
+            print("---------------------------------")
+
             palavra_chave = input("Digite a palavra chave: ")
+            print("---------------------------------")
+
             login, senha = consultar_senha(servico, palavra_chave)
             print(f"login: {login} - senha: {senha}")
+            print("---------------------------------")
+
 
         elif escolha == '3':
-            print("Saindo...")
+            print("Saindo...TCHAUU")
             gravar_banco()
             break
 
